@@ -8,7 +8,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e : any) => {
     e.preventDefault();
     const result = await signIn('credentials', {
       redirect: false,
@@ -25,11 +25,11 @@ export default function Login() {
         const userId = session.user.id;
         console.log('userId:', userId ); // Log the session to check if it contains the user role
         if (session?.user?.role === 'ROLE_STUDENT') {
-          router.push('/dashboard?userId=${userId}');
+          router.push(`/dashboard?userId=${userId}`);
         } else if (session?.user?.role === 'ROLE_TEACHER') {
           router.push(`/class?userId=${userId}`);
         } else if (session?.user?.role === 'ROLE_ADMIN') {
-          router.push('/device?userId=${userId}');
+          router.push(`/device?userId=${userId}`);
         } else {
           console.error('Unknown role:', session?.user?.role);
         }

@@ -2,22 +2,24 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import pool from '@/lib/db';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const { student_id } = req.query
   try {
 
     // Execute the query
     const [rows] = await pool.query(`      
       SELECT 
-        sectionclass.name AS class_name,
-        attendancelog.check_in_time,
-        studentsectionclass.student_id,
-        sectionclass.begin AS class_begin,
-        sectionclass.end AS class_end
+          sc.section_class_name,
+          sc.start_time,
+          sc.end_time,
+          al.check_in_time
       FROM 
-        attendancelog
+          section_class sc
       JOIN 
-        studentsectionclass ON attendancelog.studentsectionclass_id = studentsectionclass.studentsectionclass_id
-      JOIN 
-        sectionclass ON studentsectionclass.class_id = sectionclass.class_id;`);
+          student_section_class ssc ON sc.section_class_id = ssc.section_class_id
+      LEFT JOIN 
+          attendance_log al ON ssc.student_section_class_id = al.student_section_class_id
+      WHERE 
+          ssc.student_id = ?;`, [student_id]);
     res.status(200).json(rows);
   } catch (error) {
     console.error('Error fetching data:', error);

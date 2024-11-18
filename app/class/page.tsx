@@ -41,7 +41,6 @@ async function getDateMeta(userId : string | null): Promise<Class[]> {
     cache: 'no-store', // Ensures fresh data on each request if needed
   });
   const data = await res.json();
-  console.log('Fetched data:', data); // Log the fetched data
   return Array.isArray(data) ? data : data.classes || [];;
 }
 
