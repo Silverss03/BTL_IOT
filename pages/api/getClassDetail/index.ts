@@ -30,21 +30,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         sc.section_class_id = ?`,
       [classId]
     );
-
-    // // If no rows found, return an empty response
-    // if (!Array.isArray(rows) || rows.length === 0) {
-    //   return res.status(404).json({ error: "Class not found" });
-    // }
-
-    // // Mapping the data to the expected response format
-    // const classDetail = {
-    //   section_class_name: rows[0].section_class_name,
-    //   students: rows.map((row: any) => ({
-    //     name: row.student_name,
-    //     id: row.id,
-    //     checkin: row.checkin || "Not checked in", // Default if no check-in time
-    //   })),
-    // };
     console.log("Fetched class detail:", rows); // Log the fetched data
     return res.status(200).json(rows); // Sending structured response
   } catch (error) {

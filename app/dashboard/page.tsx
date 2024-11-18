@@ -7,10 +7,18 @@ import { SessionProvider, useSession } from 'next-auth/react';
 import {useSearchParams, useRouter } from "next/navigation";
 
 interface StudentClass {
-  class_name: string;
-  class_begin : string, 
-  class_end : string,
-  check_in_time : string
+  section_class_name: string;
+  start_time : string, 
+  end_time : string,
+  check_in_time : string | null
+}
+
+interface CalendarEvent {
+  title: string;
+  start: string;
+  end: string;
+  description: string;
+  color : string;
 }
 
 async function getDateMeta(student_id : string | null): Promise<StudentClass[]> {
@@ -24,22 +32,25 @@ async function getDateMeta(student_id : string | null): Promise<StudentClass[]> 
 
 function StudentPage() {
   const searchParams = useSearchParams();
-  const userId = searchParams ? searchParams.get("userId") : null;
-  const [events, setEvents] = useState<any[]>([]);
+  const userId = searchParams ? searchParams.get("userId") : null;  
+  const [events, setEvents] = useState<CalendarEvent[]>([]);
   const { data: session, status } = useSession();
   const router = useRouter();  
   useEffect(() => {
-    if (status === 'loading') return; // Do nothing while loading
-    if (!session) {
-      router.push('/login'); // Redirect to login if not authenticated
-    }
+    // if (status === 'loading') return; // Do nothing while loading
+    console.log('useEffect called'); // Log when useEffect is called
+    // if (!session) {
+    //   router.push('/login'); // Redirect to login if not authenticated
+    // }
     async function fetchData() {
       const result = await getDateMeta(userId);
+      console.log(result);
       const formattedEvents = result.map(event => ({
-        title: event.class_name,
-        start: event.class_begin,
-        end : event.class_end,
-        description: `Checked in at: ${event.check_in_time}`
+        title: event.section_class_name,
+        start: event.start_time,
+        end : event.end_time,
+        description : event.check_in_time ? `Điểm danh vào: ${event.check_in_time}` : 'Chưa điểm danh',
+        color : event.check_in_time ? 'green' : 'red'
       }));
       setEvents(formattedEvents);
     }
