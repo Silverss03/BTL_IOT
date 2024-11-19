@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       WHERE 
           ssc.student_id = ?;`, [studentId]
       );
-
+      console.log(rows)
     res.status(200).json(rows);
   } catch (error) {
     console.error('Error fetching data:', error);

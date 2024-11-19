@@ -55,7 +55,7 @@ function StudentPage() {
       setEvents(formattedEvents);
     }
     fetchData();
-  }, []);
+  }, [userId, session, status, router]);
   return (
     <div className="w-9/12 mt-8">
         <FullCalendar 

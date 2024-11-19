@@ -17,7 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Start a transaction
     await pool.query('START TRANSACTION');
     // Insert into studentsectionclass table
-    const [result] = await pool.query(
+    const result: any = await pool.query(
         `SELECT student_section_class_id FROM student_section_class WHERE section_class_id = ? AND student_id = ?;`,
         [Number(classId), id]
       );
@@ -25,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // Ensure you extract the `student_section_class_id` from the result
       
       // Extract the ID from the result
-      const studentSectionClassId = result[0].student_section_class_id;
+      const studentSectionClassId = result[0]?.student_section_class_id;
       console.log("Fetched student_section_class_id:", studentSectionClassId);
       
       // Use the extracted ID in the second query
