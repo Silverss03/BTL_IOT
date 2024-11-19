@@ -14,33 +14,15 @@ interface Class {
 
 interface Student {
   name: string;
-  id: string;
   checkin: string;
 }
 
-// const classes: Class[] = [
-//   {
-//     name: 'IOT và ứng dụng',
-//     id: 'IOT 01',
-//     students: [
-//       { name: 'Nguyễn Hữu Mạnh', id: 'B21DCCN515', checkin: '2024-11-07-12:55' },
-//       { name: 'Hồ Văn Nhuận', id: 'B21DCCN578', checkin: '2024-11-06-12:39' },
-//       { name: 'Nguyễn Hoàng Phúc', id: 'B21DCCN594', checkin: '2024-11-06-12:08' },
-//       { name: 'Nguyễn Minh Quân', id: 'B21DCCN611', checkin: '2024-11-06-12:35' },
-//     ],
-//   },
-//   {
-//     name: 'Lập trình mạng',
-//     id: 'LTM 06',
-//     students: [],
-//   },
-// ];
-
 async function getDateMeta(userId : string | null): Promise<Class[]> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getClass`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getTeacherClass?teacherId=${userId}`, {
     cache: 'no-store', // Ensures fresh data on each request if needed
   });
   const data = await res.json();
+  console.log('Fetched data:', data); // Log the fetched data
   return Array.isArray(data) ? data : data.classes || [];;
 }
 

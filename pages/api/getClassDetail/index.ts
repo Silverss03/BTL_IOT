@@ -30,7 +30,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         sc.section_class_id = ?`,
       [classId]
     );
-    console.log("Fetched class detail:", rows); // Log the fetched data
     return res.status(200).json(rows); // Sending structured response
   } catch (error) {
     console.error("Error fetching class detail:", error);

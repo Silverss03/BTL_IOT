@@ -37,11 +37,11 @@ function StudentPage() {
   const { data: session, status } = useSession();
   const router = useRouter();  
   useEffect(() => {
-    // if (status === 'loading') return; // Do nothing while loading
+    if (status === 'loading') return; // Do nothing while loading
     console.log('useEffect called'); // Log when useEffect is called
-    // if (!session) {
-    //   router.push('/login'); // Redirect to login if not authenticated
-    // }
+    if (!session) {
+      router.push('/login'); // Redirect to login if not authenticated
+    }
     async function fetchData() {
       const result = await getDateMeta(userId);
       console.log(result);
