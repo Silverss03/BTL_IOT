@@ -99,7 +99,16 @@ export default function ClassDetailPage({ params }: { params: { classId: string 
   }
 
   if (!classDetail) {
-    return <div>Chưa có học sinh nào điểm danh</div>;
+    return(  
+    <div>
+    <h1>
+      Chưa có học sinh nào điểm danh!
+    </h1>
+    <button onClick={handleOpenModal} className="mb-4 px-4 py-2 bg-blue-500 text-white rounded-md">
+        Điểm danh
+    </button>
+    <Modal isOpen={isModalOpen} onClose={handleCloseModal} onSubmit={handleSubmit} classId = {classId!}/>
+  </div>);
   }
 
   return (
@@ -119,7 +128,15 @@ export default function ClassDetailPage({ params }: { params: { classId: string 
           ))}
         </ul>
       ) : (
-        <div>Chưa có học sinh nào điểm danh</div>
+        <div>
+          <h1>
+            Chưa có học sinh nào điểm danh!
+          </h1>
+          <button onClick={handleOpenModal} className="mb-4 px-4 py-2 bg-blue-500 text-white rounded-md">
+              Điểm danh
+          </button>
+          <Modal isOpen={isModalOpen} onClose={handleCloseModal} onSubmit={handleSubmit} classId = {classId!}/>
+        </div>
       )}
     </div>
   );
