@@ -1,7 +1,7 @@
 "use client"
 //' -  - ', ' -  - ', ' -  - ', ' -  - '
 import { useState, useEffect } from 'react';
-import { SessionProvider, useSession } from 'next-auth/react';
+import { SessionProvider, useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { classNames } from '../lib/utils';
 import { useSearchParams } from "next/navigation";
@@ -53,9 +53,19 @@ function ClassPage() {
     return <div>Loading...</div>;
   }
 
+  const handleLogout = () => {
+    signOut({ callbackUrl: '/login' }); // Redirect to login page after logout
+  };
+
   return (
       <div className="container mx-auto px-4">
         <h1 className="text-3xl font-bold mb-8">Classes</h1>
+        <button
+          onClick={handleLogout}
+          className="px-4 py-2 bg-red-500 text-white rounded-md"
+        >
+          Logout
+        </button>
         <ul>
           {data.map((cls) => (
             <li

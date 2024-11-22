@@ -4,6 +4,7 @@ import { SessionProvider, useSession } from 'next-auth/react';
 import Switch from 'react-switch';
 
 interface Item{
+    device_id : number;
     device_name: string;
     device_status: string;
 };
@@ -27,16 +28,15 @@ function AdminPage(){
         setItems(updatedItems);
     
         // Optionally, you can send a request to update the device status in the backend
-        // await fetch(`localhost:1883/api/updateDeviceStatus`, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({
-        //         device_name: updatedItems[index].device_name,
-        //         device_status: updatedItems[index].device_status,
-        //     }),
-        // });
+        await fetch(`http://localhost:8080/device//update_device_status/${index}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              id: updatedItems[index].device_id, // Send only the id of the device
+            }),
+        });
     };
 
     useEffect(() => {

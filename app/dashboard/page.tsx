@@ -3,7 +3,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import React, {useState, useEffect} from "react";
-import { SessionProvider, useSession } from 'next-auth/react';
+import { SessionProvider, useSession, signOut } from 'next-auth/react';
 import {useSearchParams, useRouter } from "next/navigation";
 
 interface StudentClass {
@@ -29,6 +29,10 @@ async function getDateMeta(student_id : string | null): Promise<StudentClass[]> 
   console.log('Fetched data:', data); // Log the fetched data
   return data;
 }
+
+const handleSignOut = () => {
+  signOut({ callbackUrl: '/login' }); // Redirect to login page after logout
+};
 
 function StudentPage() {
   const searchParams = useSearchParams();
@@ -58,6 +62,15 @@ function StudentPage() {
   }, [userId, session, status, router]);
   return (
     <div className="w-9/12 mt-8">
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold">Student Dashboard</h1>
+          <button
+            onClick={handleSignOut}
+            className="px-4 py-2 bg-red-500 text-white rounded-md"
+          >
+            Sign Out
+          </button>
+        </div>
         <FullCalendar 
             height={"85vh"} 
             plugins={[dayGridPlugin, timeGridPlugin]} 
