@@ -4,7 +4,7 @@ import pool from '@/lib/db';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     // Execute the query
-    const [rows] = await pool.query('SELECT device_name, device_status FROM device');
+    const [rows] = await pool.query('SELECT device_id, device_name, device_status FROM device');
     res.status(200).json(rows);
   } catch (error) {
     console.error('Error fetching data:', error);

@@ -18,11 +18,10 @@ interface Student {
 }
 
 async function getDateMeta(userId : string | null): Promise<Class[]> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/getTeacherClass?teacherId=${userId}`, {
+  const res = await fetch(`http://localhost:3000/api/getTeacherClass?teacherId=${userId}`, {
     cache: 'no-store', // Ensures fresh data on each request if needed
   });
   const data = await res.json();
-  console.log('Fetched data:', data); // Log the fetched data
   return Array.isArray(data) ? data : data.classes || [];;
 }
 
