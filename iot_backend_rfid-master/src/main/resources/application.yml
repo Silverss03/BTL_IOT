@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/iot_rfid}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:quancntt2003}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+
+jwt:
+  expiration: 7200
+  secretKey: jQ9v9XdsmzEkLZm6JfQ5tTy1pLkm+WxE3KgAfRjs7H6POK9JrNdFkTlLBc1mZl9v
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /api-docs
