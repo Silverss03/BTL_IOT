@@ -6,7 +6,9 @@ Công nghệ sử dụng :
 - Ngôn ngữ : Typescript
 - Framework : Next.js
 - CSS : Tailwind CSS
+
 Installation : https://nextjs.org/docs/app/getting-started/installation
+
 Getting started : https://nextjs.org/learn/dashboard-app/getting-started
 
 Backend
